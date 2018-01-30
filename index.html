@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8" />
+    <title>My First Angular App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles.css" />
+</head>
+
+<body ng-controller="mainCtrl">
+    <h1>My Enemies List</h1>
+    <form>
+        <input placeholder="Enemy Name" ng-model="newEnemy" type="text">
+        <button type="submit" ng-click="addEnemy(newEnemy)">Declare Enemy</button>
+    </form>
+    <input placeholder="Search Enemy Name" ng-model="search.name" type="text">
+    <input placeholder="Search Enemy Gender" ng-model="search.gender" type="text">
+    <br>
+    <br>
+    <div ng-repeat="enemy in enemies | filter: search | orderBy: '+name' track by $index">
+        <div ng-class="{ strike: clicked }">
+            {{ enemy.name }}
+        </div>
+        <div>
+            <button ng-click="killEnemy($index)">
+                Kill
+            </button>
+            <button ng-hide="clicked" ng-click="clicked = !clicked">Neutralize</button>
+            <button ng-show="clicked" ng-click="clicked = !clicked">Revive</button>
+        </div>
+        <br>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+    <script src="/app.js"></script>
+    <script src="/mainCtrl.js"></script>
+</body>
+
+</html>
